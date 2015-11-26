@@ -1,0 +1,19 @@
+System.register(['bootstrap'], function (_export) {
+  'use strict';
+
+  _export('configure', configure);
+
+  function configure(aurelia) {
+    aurelia.use.standardConfiguration().developmentLogging().plugin('autobahn').plugin('bootstrap-switch');
+
+    aurelia.start().then(function (a) {
+      return a.setRoot();
+    });
+  }
+
+  return {
+    setters: [function (_bootstrap) {}],
+    execute: function () {}
+  };
+});
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1haW4uanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7QUFFTyxXQUFTLFNBQVMsQ0FBQyxPQUFPLEVBQUU7QUFDakMsV0FBTyxDQUFDLEdBQUcsQ0FDUixxQkFBcUIsRUFBRSxDQUN2QixrQkFBa0IsRUFBRSxDQUNwQixNQUFNLENBQUMsVUFBVSxDQUFDLENBQ2xCLE1BQU0sQ0FBQyxrQkFBa0IsQ0FBQyxDQUFDOztBQVE5QixXQUFPLENBQUMsS0FBSyxFQUFFLENBQUMsSUFBSSxDQUFDLFVBQUEsQ0FBQzthQUFJLENBQUMsQ0FBQyxPQUFPLEVBQUU7S0FBQSxDQUFDLENBQUM7R0FDeEMiLCJmaWxlIjoibWFpbi5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCAnYm9vdHN0cmFwJztcblxuZXhwb3J0IGZ1bmN0aW9uIGNvbmZpZ3VyZShhdXJlbGlhKSB7XG4gIGF1cmVsaWEudXNlXG4gICAgLnN0YW5kYXJkQ29uZmlndXJhdGlvbigpXG4gICAgLmRldmVsb3BtZW50TG9nZ2luZygpXG4gICAgLnBsdWdpbignYXV0b2JhaG4nKVxuICAgIC5wbHVnaW4oJ2Jvb3RzdHJhcC1zd2l0Y2gnKTtcblxuICAvL1VuY29tbWVudCB0aGUgbGluZSBiZWxvdyB0byBlbmFibGUgYW5pbWF0aW9uLlxuICAvL2F1cmVsaWEudXNlLnBsdWdpbignYXVyZWxpYS1hbmltYXRvci1jc3MnKTtcblxuICAvL0FueW9uZSB3YW50aW5nIHRvIHVzZSBIVE1MSW1wb3J0cyB0byBsb2FkIHZpZXdzLCB3aWxsIG5lZWQgdG8gaW5zdGFsbCB0aGUgZm9sbG93aW5nIHBsdWdpbi5cbiAgLy9hdXJlbGlhLnVzZS5wbHVnaW4oJ2F1cmVsaWEtaHRtbC1pbXBvcnQtdGVtcGxhdGUtbG9hZGVyJylcblxuICBhdXJlbGlhLnN0YXJ0KCkudGhlbihhID0+IGEuc2V0Um9vdCgpKTtcbn1cbiJdLCJzb3VyY2VSb290IjoiL3NvdXJjZS8ifQ==
