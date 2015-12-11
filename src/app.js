@@ -3,17 +3,28 @@ import "bootstrap-switch";
 //import "bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.css!";
 
 export class Wamp {
-  sw1count = 0;
+  URL= "ws://localhost:8080/ws"
+  sw2count = 0;
   result = 0;
+  accelX =0;
+  accelY = 0;
+  accelZ = 0;
+  colors = ["Blue","Green","Red"];
+  selectedColor = 'Blue';
   session;
+  switchState= false;
 
+  onChangeColor() {
+    if (this.switchState)
+      this.session.call("com.freedom.switchon",[this.colors.indexOf(this.selectedColor)]);
+  }
 
   onTest(state) {
     console.log("Changed:"+ state);
     if (state)
-      this.session.publish("com.example.switchon");
+      this.session.call("com.freedom.switchon",[this.colors.indexOf(this.selectedColor)]);
     else
-      this.session.publish("com.example.switchoff")
+      this.session.call("com.freedom.switchoff");
   }
 
   onevent(args) {
@@ -22,17 +33,49 @@ export class Wamp {
     $("[name='my-checkbox']").bootstrapSwitch("toggleState");
   }
 
+  changedLedStatus(res) {
+    console.log("Changed Led Status");
+    if (res==-1)   {
+      this.switchState = false;
+    }
+    else {
+      this.switchState = true;
+      this.selectedColor = this.colors[res];
+    }
+  }
+
   activate() {
-    this.connection = new autobahn.Connection({url: "ws://192.168.20.192:8081",realm: "realm1"});
+    this.connection = new autobahn.Connection({url: this.URL,realm: "realm1"});
 
     this.connection.onopen = session => {
       console.log ("Session estabilished");
       this.session = session;
       session.subscribe("button", (args)=> {
-        this.sw1count++;
+        this.sw2count=args[0];
       });
 
-    }
+      session.subscribe("acceleremoter", (args)=> {
+        this.accelX=args[0];
+        this.accelY=args[1];
+        this.accelZ=args[2];
+      });
+
+      session.subscribe("com.freedom.switched", (args) => {
+        this.changedLedStatus(args[0]);
+      });
+
+      session.call('com.freedom.getCounter').then(
+        res => {
+          console.log("Result:", res);
+          this.sw2count = res;
+        });
+
+      session.call('com.freedom.getLedStatus').then(
+        res => {
+          console.log("Led Status:", res);
+          this.changedLedStatus(res);
+        });
+    };
 
     this.connection.open();
   }

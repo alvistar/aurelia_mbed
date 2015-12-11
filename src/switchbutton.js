@@ -10,10 +10,11 @@ export class SwitchButton {
 
   constructor(element) {
     this.element = element;
-    console.log(element);
+    //console.log(element);
   }
 
   stateChanged(value) {
+    //console.log("changed ", value);
     var e = $(this.element).find("input");
     e.bootstrapSwitch('state', value, true);
   }
@@ -27,7 +28,7 @@ export class SwitchButton {
     e.on("switchChange.bootstrapSwitch", (event, state) => {
       self.state = state;
       if (self.onChange != null) {
-        console.log(state);
+        //console.log(state);
         self.onChange(state);
       }
     });
